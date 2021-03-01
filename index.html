@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Relógio solar</title>
+  </head>
+
+  <style>
+    /* Reset CSS */
+    *,
+    *:before,
+    *:after {
+      margin: 0;
+      padding: 0;
+      outline: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 62.5%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    }
+
+    a,
+    a:hover,
+    a:visited {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Content CSS */
+    body {
+      width: 100%;
+      height: 100vh;
+      background-color: #333;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .time {
+      color: white;
+      font-size: 7vw;
+      font-weight: 500;
+      letter-spacing: 0.25vw;
+    }
+  </style>
+
+  <body>
+    <div id="time" class="time">00:00:00</div>
+  </body>
+
+  <script>
+    var elementTime;
+
+    function refresh() {
+      var date = new Date(),
+        hours = date.getHours().toString().padStart(2, "0"),
+        minutes = date.getHours().toString().padStart(2, "0"),
+        seconds = date.getSeconds().toString().padStart(2, "0");
+
+      elementTime.innerText = hours + ":" + minutes + ":" + seconds;
+    }
+
+    function runOnLoad() {
+      elementTime = document.getElementById("time");
+      elementBody = document.querySelector("body");
+      setInterval(refresh, 1000);
+    }
+
+    window.onload = runOnLoad;
+  </script>
+</html>
