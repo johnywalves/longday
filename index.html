@@ -48,8 +48,8 @@
 
     .time {
       font-size: 7vw;
-      font-weight: 500;
-      letter-spacing: 0.25vw;
+      font-weight: 700;
+      letter-spacing: 0.35w;
 
       transition: color 0.3s;
     }
@@ -60,6 +60,7 @@
   </body>
 
   <script>
+    // Startup
     var elementTime;
     var elementBody = document.querySelector("body");
 
@@ -71,14 +72,13 @@
       }
     }
 
-    function refreshStartColors() {
+    (function refreshStartColors() {
       var colors = getColors(new Date().getHours());
       elementBody.style.color = colors.back;
       elementBody.style.backgroundColor = colors.back;
-    }
+    })();
 
-    refreshStartColors();
-
+    // Loop settings
     function refresh() {
       var date = new Date(),
         hours = date.getHours().toString().padStart(2, "0"),
@@ -86,17 +86,25 @@
         seconds = date.getSeconds().toString().padStart(2, "0");
 
       elementTime.innerText = hours + ":" + minutes + ":" + seconds;
+    }
 
-      var colors = getColors(hours);
+    function refreshColors() {
+      var colors = getColors(new Date().getHours());
       elementBody.style.color = colors.text;
       elementBody.style.backgroundColor = colors.back;
     }
 
     function runOnLoad() {
       elementTime = document.getElementById("time");
+
+      refresh();
+      refreshColors();
+
       setInterval(refresh, 1000);
+      setInterval(refreshColors, 60 * 1000);
     }
 
+    // Run when elements are available
     window.onload = runOnLoad;
   </script>
 </html>
