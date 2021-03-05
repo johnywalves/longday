@@ -74,7 +74,7 @@
     function refresh() {
       var date = new Date(),
         hours = date.getHours().toString().padStart(2, "0"),
-        minutes = date.getHours().toString().padStart(2, "0"),
+        minutes = date.getMinutes().toString().padStart(2, "0"),
         seconds = date.getSeconds().toString().padStart(2, "0");
 
       elementTime.innerText = hours + ":" + minutes + ":" + seconds;
