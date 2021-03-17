@@ -260,14 +260,17 @@
       elementSky;
 
     function getProperties() {
-      var hours = new Date().getHours();
-      var top = (hours / 24) * -2400 + "%";
+      var date = new Date(),
+        hours = date.getHours(),
+        minutes = date.getMinutes();
+      var topSky =
+        parseInt((hours / 24) * -2400) + parseInt((minutes / 60) * -100) + "%";
 
       if (parseInt(hours) >= 5 && parseInt(hours) < 18) {
         // Day
         return {
           text: "#333",
-          top,
+          topSky,
           moon: 0,
           sun: 1,
         };
@@ -275,7 +278,7 @@
         // Night
         return {
           text: "#fff",
-          top,
+          topSky,
           top: 1,
           moon: 1,
           sun: 0,
@@ -302,7 +305,7 @@
     function refreshColors() {
       var colors = getProperties();
       elementBody.style.color = colors.text;
-      elementSky.style.top = colors.top;
+      elementSky.style.top = colors.topSky;
       elementSun.style.opacity = colors.sun;
       elementMoon.style.opacity = colors.moon;
     }
@@ -313,13 +316,14 @@
       elementSun = document.getElementById("sun");
       elementSky = document.getElementById("sky");
 
-      elementSky.style.transition = "top 0.5s";
-
       refresh();
       refreshColors();
 
       setInterval(refresh, 1000);
-      setInterval(refreshColors, 1000);
+      setTimeout(function () {
+        elementSky.style.transition = "top 1.0s ease-in-out";
+        setInterval(refreshColors, 1000);
+      }, 1000);
     }
 
     // Run when elements are available
